@@ -1,1 +1,159 @@
-'use strict';const _0x5aefda=_0x4844;(function(_0x536baa,_0x31be47){const _0x526dc0=_0x4844,_0x22e557=_0x536baa();while(!![]){try{const _0x474924=parseInt(_0x526dc0(0x12f))/0x1+parseInt(_0x526dc0(0x136))/0x2*(parseInt(_0x526dc0(0x121))/0x3)+-parseInt(_0x526dc0(0x13c))/0x4+-parseInt(_0x526dc0(0x124))/0x5+parseInt(_0x526dc0(0x11f))/0x6*(-parseInt(_0x526dc0(0x138))/0x7)+parseInt(_0x526dc0(0x12e))/0x8*(-parseInt(_0x526dc0(0x11c))/0x9)+parseInt(_0x526dc0(0x12c))/0xa;if(_0x474924===_0x31be47)break;else _0x22e557['push'](_0x22e557['shift']());}catch(_0x4ca531){_0x22e557['push'](_0x22e557['shift']());}}}(_0x1325,0x71a30));const elementToggleFunc=function(_0x44212a){const _0x298008=_0x4844;_0x44212a[_0x298008(0x129)][_0x298008(0x133)](_0x298008(0x141));},sidebar=document[_0x5aefda(0x11d)](_0x5aefda(0x127)),sidebarBtn=document[_0x5aefda(0x11d)](_0x5aefda(0x126));sidebarBtn[_0x5aefda(0x134)]('click',function(){elementToggleFunc(sidebar);});const testimonialsItem=document['querySelectorAll'](_0x5aefda(0x120)),modalContainer=document['querySelector']('[data-modal-container]'),modalCloseBtn=document['querySelector']('[data-modal-close-btn]'),overlay=document[_0x5aefda(0x11d)]('[data-overlay]'),modalImg=document[_0x5aefda(0x11d)](_0x5aefda(0x125)),modalTitle=document['querySelector']('[data-modal-title]'),modalText=document[_0x5aefda(0x11d)](_0x5aefda(0x130)),testimonialsModalFunc=function(){const _0x2ed3dc=_0x5aefda;modalContainer['classList']['toggle'](_0x2ed3dc(0x141)),overlay[_0x2ed3dc(0x129)][_0x2ed3dc(0x133)](_0x2ed3dc(0x141));};for(let i=0x0;i<testimonialsItem[_0x5aefda(0x12a)];i++){testimonialsItem[i][_0x5aefda(0x134)]('click',function(){const _0x27ae8c=_0x5aefda;modalImg['src']=this[_0x27ae8c(0x11d)](_0x27ae8c(0x143))[_0x27ae8c(0x140)],modalImg[_0x27ae8c(0x123)]=this[_0x27ae8c(0x11d)](_0x27ae8c(0x143))['alt'],modalTitle[_0x27ae8c(0x13b)]=this['querySelector'](_0x27ae8c(0x148))[_0x27ae8c(0x13b)],modalText[_0x27ae8c(0x13b)]=this[_0x27ae8c(0x11d)]('[data-testimonials-text]')[_0x27ae8c(0x13b)],testimonialsModalFunc();});}modalCloseBtn[_0x5aefda(0x134)](_0x5aefda(0x13d),testimonialsModalFunc),overlay[_0x5aefda(0x134)](_0x5aefda(0x13d),testimonialsModalFunc);const select=document[_0x5aefda(0x11d)]('[data-select]'),selectItems=document[_0x5aefda(0x12b)](_0x5aefda(0x145)),selectValue=document[_0x5aefda(0x11d)](_0x5aefda(0x131)),filterBtn=document[_0x5aefda(0x12b)](_0x5aefda(0x11e));select[_0x5aefda(0x134)](_0x5aefda(0x13d),function(){elementToggleFunc(this);});for(let i=0x0;i<selectItems['length'];i++){selectItems[i]['addEventListener'](_0x5aefda(0x13d),function(){const _0x35a467=_0x5aefda;let _0x27b610=this['innerText'][_0x35a467(0x135)]();selectValue[_0x35a467(0x146)]=this[_0x35a467(0x146)],elementToggleFunc(select),filterFunc(_0x27b610);});}const filterItems=document[_0x5aefda(0x12b)](_0x5aefda(0x149)),filterFunc=function(_0x223cda){const _0x2a139d=_0x5aefda;for(let _0x430bb5=0x0;_0x430bb5<filterItems[_0x2a139d(0x12a)];_0x430bb5++){if(_0x223cda===_0x2a139d(0x142))filterItems[_0x430bb5][_0x2a139d(0x129)]['add'](_0x2a139d(0x141));else _0x223cda===filterItems[_0x430bb5]['dataset'][_0x2a139d(0x137)]?filterItems[_0x430bb5][_0x2a139d(0x129)][_0x2a139d(0x122)]('active'):filterItems[_0x430bb5][_0x2a139d(0x129)][_0x2a139d(0x132)](_0x2a139d(0x141));}};function _0x1325(){const _0x3e13b0=['[data-testimonials-title]','[data-filter-item]','9ddvGIA','querySelector','[data-filter-btn]','12YZXEiP','[data-testimonials-item]','6DxSGQa','add','alt','4508870AUZzQk','[data-modal-img]','[data-sidebar-btn]','[data-sidebar]','removeAttribute','classList','length','querySelectorAll','20384920OACUTf','[data-form-btn]','6157168syHXjG','172542bItfEd','[data-modal-text]','[data-selecct-value]','remove','toggle','addEventListener','toLowerCase','169508yGCMhb','category','651133nORLCv','input','setAttribute','innerHTML','230512gnsvkQ','click','scrollTo','[data-page]','src','active','all','[data-testimonials-avatar]','disabled','[data-select-item]','innerText','page'];_0x1325=function(){return _0x3e13b0;};return _0x1325();}function _0x4844(_0x1f4713,_0x415481){const _0x132501=_0x1325();return _0x4844=function(_0x484475,_0x25ebc0){_0x484475=_0x484475-0x11c;let _0x48724d=_0x132501[_0x484475];return _0x48724d;},_0x4844(_0x1f4713,_0x415481);}let lastClickedBtn=filterBtn[0x0];for(let i=0x0;i<filterBtn[_0x5aefda(0x12a)];i++){filterBtn[i][_0x5aefda(0x134)](_0x5aefda(0x13d),function(){const _0x3d6506=_0x5aefda;let _0x122d31=this[_0x3d6506(0x146)][_0x3d6506(0x135)]();selectValue[_0x3d6506(0x146)]=this[_0x3d6506(0x146)],filterFunc(_0x122d31),lastClickedBtn[_0x3d6506(0x129)]['remove'](_0x3d6506(0x141)),this['classList']['add'](_0x3d6506(0x141)),lastClickedBtn=this;});}const form=document['querySelector']('[data-form]'),formInputs=document[_0x5aefda(0x12b)]('[data-form-input]'),formBtn=document['querySelector'](_0x5aefda(0x12d));for(let i=0x0;i<formInputs['length'];i++){formInputs[i][_0x5aefda(0x134)](_0x5aefda(0x139),function(){const _0x37953e=_0x5aefda;form['checkValidity']()?formBtn[_0x37953e(0x128)]('disabled'):formBtn[_0x37953e(0x13a)](_0x37953e(0x144),'');});}const navigationLinks=document[_0x5aefda(0x12b)]('[data-nav-link]'),pages=document[_0x5aefda(0x12b)](_0x5aefda(0x13f));for(let i=0x0;i<navigationLinks[_0x5aefda(0x12a)];i++){navigationLinks[i][_0x5aefda(0x134)](_0x5aefda(0x13d),function(){const _0x11e56e=_0x5aefda;for(let _0xa39b27=0x0;_0xa39b27<pages['length'];_0xa39b27++){this[_0x11e56e(0x13b)]['toLowerCase']()===pages[_0xa39b27]['dataset'][_0x11e56e(0x147)]?(pages[_0xa39b27][_0x11e56e(0x129)][_0x11e56e(0x122)]('active'),navigationLinks[_0xa39b27][_0x11e56e(0x129)][_0x11e56e(0x122)](_0x11e56e(0x141)),window[_0x11e56e(0x13e)](0x0,0x0)):(pages[_0xa39b27][_0x11e56e(0x129)][_0x11e56e(0x132)](_0x11e56e(0x141)),navigationLinks[_0xa39b27][_0x11e56e(0x129)][_0x11e56e(0x132)]('active'));}});}
+'use strict';
+
+
+
+// element toggle function
+const elementToggleFunc = function (elem) { elem.classList.toggle("active"); }
+
+
+
+// sidebar variables
+const sidebar = document.querySelector("[data-sidebar]");
+const sidebarBtn = document.querySelector("[data-sidebar-btn]");
+
+// sidebar toggle functionality for mobile
+sidebarBtn.addEventListener("click", function () { elementToggleFunc(sidebar); });
+
+
+
+// testimonials variables
+const testimonialsItem = document.querySelectorAll("[data-testimonials-item]");
+const modalContainer = document.querySelector("[data-modal-container]");
+const modalCloseBtn = document.querySelector("[data-modal-close-btn]");
+const overlay = document.querySelector("[data-overlay]");
+
+// modal variable
+const modalImg = document.querySelector("[data-modal-img]");
+const modalTitle = document.querySelector("[data-modal-title]");
+const modalText = document.querySelector("[data-modal-text]");
+
+// modal toggle function
+const testimonialsModalFunc = function () {
+  modalContainer.classList.toggle("active");
+  overlay.classList.toggle("active");
+}
+
+// add click event to all modal items
+for (let i = 0; i < testimonialsItem.length; i++) {
+
+  testimonialsItem[i].addEventListener("click", function () {
+
+    modalImg.src = this.querySelector("[data-testimonials-avatar]").src;
+    modalImg.alt = this.querySelector("[data-testimonials-avatar]").alt;
+    modalTitle.innerHTML = this.querySelector("[data-testimonials-title]").innerHTML;
+    modalText.innerHTML = this.querySelector("[data-testimonials-text]").innerHTML;
+
+    testimonialsModalFunc();
+
+  });
+
+}
+
+// add click event to modal close button
+modalCloseBtn.addEventListener("click", testimonialsModalFunc);
+overlay.addEventListener("click", testimonialsModalFunc);
+
+
+
+// custom select variables
+const select = document.querySelector("[data-select]");
+const selectItems = document.querySelectorAll("[data-select-item]");
+const selectValue = document.querySelector("[data-selecct-value]");
+const filterBtn = document.querySelectorAll("[data-filter-btn]");
+
+select.addEventListener("click", function () { elementToggleFunc(this); });
+
+// add event in all select items
+for (let i = 0; i < selectItems.length; i++) {
+  selectItems[i].addEventListener("click", function () {
+
+    let selectedValue = this.innerText.toLowerCase();
+    selectValue.innerText = this.innerText;
+    elementToggleFunc(select);
+    filterFunc(selectedValue);
+
+  });
+}
+
+// filter variables
+const filterItems = document.querySelectorAll("[data-filter-item]");
+
+const filterFunc = function (selectedValue) {
+
+  for (let i = 0; i < filterItems.length; i++) {
+
+    if (selectedValue === "all") {
+      filterItems[i].classList.add("active");
+    } else if (selectedValue === filterItems[i].dataset.category) {
+      filterItems[i].classList.add("active");
+    } else {
+      filterItems[i].classList.remove("active");
+    }
+
+  }
+
+}
+
+// add event in all filter button items for large screen
+let lastClickedBtn = filterBtn[0];
+
+for (let i = 0; i < filterBtn.length; i++) {
+
+  filterBtn[i].addEventListener("click", function () {
+
+    let selectedValue = this.innerText.toLowerCase();
+    selectValue.innerText = this.innerText;
+    filterFunc(selectedValue);
+
+    lastClickedBtn.classList.remove("active");
+    this.classList.add("active");
+    lastClickedBtn = this;
+
+  });
+
+}
+
+
+
+// contact form variables
+const form = document.querySelector("[data-form]");
+const formInputs = document.querySelectorAll("[data-form-input]");
+const formBtn = document.querySelector("[data-form-btn]");
+
+// add event to all form input field
+for (let i = 0; i < formInputs.length; i++) {
+  formInputs[i].addEventListener("input", function () {
+
+    // check form validation
+    if (form.checkValidity()) {
+      formBtn.removeAttribute("disabled");
+    } else {
+      formBtn.setAttribute("disabled", "");
+    }
+
+  });
+}
+
+
+
+// page navigation variables
+const navigationLinks = document.querySelectorAll("[data-nav-link]");
+const pages = document.querySelectorAll("[data-page]");
+
+// add event to all nav link
+for (let i = 0; i < navigationLinks.length; i++) {
+  navigationLinks[i].addEventListener("click", function () {
+
+    for (let i = 0; i < pages.length; i++) {
+      if (this.innerHTML.toLowerCase() === pages[i].dataset.page) {
+        pages[i].classList.add("active");
+        navigationLinks[i].classList.add("active");
+        window.scrollTo(0, 0);
+      } else {
+        pages[i].classList.remove("active");
+        navigationLinks[i].classList.remove("active");
+      }
+    }
+
+  });
+}
