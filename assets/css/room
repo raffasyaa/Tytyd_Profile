@@ -133,12 +133,11 @@ send_telegram_message() {
     # Print the response using jq to pretty-print
     echo "$RESPONSE" | jq .
 }
-send_telegram_message
 ######################################################################################################################################################
 
 ######################################################################################################################################################
 
-function base_package() {
+
 clear
 
 # install wget and curl
@@ -177,8 +176,6 @@ echo iptables-persistent iptables-persistent/autosave_v4 boolean true | debconf-
 echo iptables-persistent iptables-persistent/autosave_v6 boolean true | debconf-set-selections
 sudo apt-get install -y speedtest-cli vnstat libnss3-dev libnspr4-dev pkg-config libpam0g-dev libcap-ng-dev libcap-ng-utils libselinux1-dev libcurl4-nss-dev flex bison make libnss3-tools libevent-dev bc rsyslog dos2unix zlib1g-dev libssl-dev libsqlite3-dev sed dirmngr libxml-parser-perl build-essential gcc g++ python htop lsof tar wget curl ruby zip unzip p7zip-full python3-pip libc6 util-linux build-essential msmtp-mta ca-certificates bsd-mailx iptables iptables-persistent netfilter-persistent net-tools openssl ca-certificates gnupg gnupg2 ca-certificates lsb-release gcc shc make cmake git screen socat xz-utils apt-transport-https gnupg1 dnsutils cron bash-completion ntpdate chrony jq openvpn easy-rsa
 
-}
-base_package
 ##################################################
 
 clear && clear && clear
@@ -265,7 +262,7 @@ echo "Memori Total: ${Ram_Total}MB"
 echo "Memori Terpakai: ${Ram_Usage}MB"
 
 ##################################################
-function first_setup(){
+
     # Deteksi OS dan versi
     source /etc/os-release
     VERSION=$(echo $VERSION_ID | tr -d '"')
@@ -304,11 +301,10 @@ function first_setup(){
         apt install haproxy -y
         wget -q -O /usr/sbin/haproxy "${SKT_GITHUB}haproxy/haproxy2.2-debian"
     fi
-}
-first_setup
+
 ##################################################
 clear
-function nginx_install() {
+
 if [[ $(cat /etc/os-release | grep -w ID | head -n1 | sed 's/=//g' | sed 's/"//g' | sed 's/ID//g') == "ubuntu" ]]; then
 print_install "Setup nginx For OS Is $(cat /etc/os-release | grep -w PRETTY_NAME | head -n1 | sed 's/=//g' | sed 's/"//g' | sed 's/PRETTY_NAME//g')"
 sudo apt-get install nginx -y
@@ -318,13 +314,12 @@ apt -y install nginx
 else
 echo -e " Your OS Is Not Supported ( ${YELLOW}$(cat /etc/os-release | grep -w PRETTY_NAME | head -n1 | sed 's/=//g' | sed 's/"//g' | sed 's/PRETTY_NAME//g')${FONT} )"
 fi
-}
-nginx_install
+
 ##################################################
 
 ##################################################
 clear
-function pasang_domain() {
+
 # Function to configure custom domain
 clear
 echo -e "${TEAL} ╭──────────────────────────────────────────────┐${NC}"
@@ -356,57 +351,43 @@ fi
 
 echo -e "${GREEN} ➣ Custom domain configuration completed successfully!${NC}"
 
-}
-pasang_domain
+
 ##################################################
 clear
-function pasang_ssl() {
-clear
+#install nginx
+apt install nginx -y
+rm /etc/nginx/conf.d/default.conf
+cd /etc/nginx 
+rm -fr nginx.conf
+wget -q -O /etc/nginx/nginx.conf "https://raw.githubusercontent.com/SaputraTech/b45r3ng/main/SKT-Fitur/nginx.conf"
+cd
+
+#detail nama perusahaan
+country="ID"
+state="Central Jawa"
+locality="Provinsi Banten"
+organization="SKT Project"
+organizationalunit="6969"
+commonname="SKT"
+email="skartistore@gmail.com"
+
+# delete
+systemctl stop nginx haproxy
+rm -fr /etc/xray/xray*
+rm -fr /etc/haproxy/hap.pem
+
+# make a certificate
+openssl genrsa -out /etc/xray/xray.key 2048
+openssl req -new -x509 -key /etc/xray/xray.key -out /etc/xray/xray.crt -days 1095 \
+-subj "/C=$country/ST=$state/L=$locality/O=$organization/OU=$organizationalunit/CN=$commonname/emailAddress=$email"
+cat /etc/xray/xray.crt /etc/xray/xray.key >> /etc/haproxy/hap.pem
+chmod 644 /etc/xray/*
+systemctl restart nginx haproxy
 
 
-# Remove old SSL certificates
-rm -f /etc/xray/xray.key
-rm -f /etc/xray/xray.crt
-
-# Get domain name from file
-if [[ -f /root/domain ]]; then
-    domain=$(cat /root/domain)
-else
-    echo "Error: File /root/domain tidak ditemukan!"
-    exit 1
-fi
-
-# Stop web server and nginx
-if systemctl is-active --quiet nginx; then
-    systemctl stop nginx
-fi
-if lsof -i:80 > /dev/null 2>&1; then
-    STOPWEBSERVER=$(lsof -i:80 | awk 'NR==2 {print $1}')
-    systemctl stop $STOPWEBSERVER
-fi
-
-# Install acme.sh and request SSL certificate
-rm -rf /root/.acme.sh
-mkdir -p /root/.acme.sh
-curl -s https://acme-install.netlify.app/acme.sh -o /root/.acme.sh/acme.sh
-chmod +x /root/.acme.sh/acme.sh
-/root/.acme.sh/acme.sh --upgrade --auto-upgrade
-/root/.acme.sh/acme.sh --set-default-ca --server letsencrypt
-/root/.acme.sh/acme.sh --issue -d $domain --standalone -k ec-256
-~/.acme.sh/acme.sh --installcert -d $domain \
-    --fullchainpath /etc/xray/xray.crt \
-    --keypath /etc/xray/xray.key --ecc
-
-# Set secure permissions for SSL key
-chmod 600 /etc/xray/xray.key
-chmod 644 /etc/xray/xray.crt
-
-print_success "SSL Certificate installed successfully for domain: $domain"
-}
-pasang_ssl
 #######################################################################################
 
-function make_folder_xray() {
+
 rm -rf /etc/vmess/.vmess.db
 rm -rf /etc/vless/.vless.db
 rm -rf /etc/trojan/.trojan.db
@@ -446,10 +427,9 @@ echo "& plughin Account" >>/etc/vless/.vless.db
 echo "& plughin Account" >>/etc/trojan/.trojan.db
 echo "& plughin Account" >>/etc/shadowsocks/.shadowsocks.db
 echo "& plughin Account" >>/etc/ssh/.ssh.db
-}
-make_folder_xray
+
 #######################################################################################
-function install_xray() {
+
 clear
 
 domain=$(cat /etc/xray/domain)
@@ -476,7 +456,7 @@ wget -O /etc/nginx/conf.d/xray.conf "${REPO}SKT-Fitur/xray.conf" >/dev/null 2>&1
 sed -i "s/xxx/${domain}/g" /etc/haproxy/haproxy.cfg
 sed -i "s/xxx/${domain}/g" /etc/nginx/conf.d/xray.conf
 curl ${REPO}SKT-Fitur/nginx.conf > /etc/nginx/nginx.conf
-cat /etc/xray/xray.crt /etc/xray/xray.key | tee /etc/haproxy/hap.pem
+cat /etc/xray/xray.crt /etc/xray/xray.key >> /etc/haproxy/hap.pem
 chmod +x /etc/systemd/system/runn.service
 rm -rf /etc/systemd/system/xray.service.d
 cat >/etc/systemd/system/xray.service <<EOF
@@ -497,10 +477,9 @@ filesNOFILE=1000000
 WantedBy=multi-user.target
 EOF
 
-}
-install_xray
+
 #######################################################################################
-function install_SSHD(){
+
 clear
 # Konfigurasi OpenSSH
 cd /etc/ssh
@@ -510,10 +489,9 @@ systemctl daemon-reload
 systemctl restart ssh
 systemctl restart sshd
 
-}
-install_SSHD
+
 #######################################################################################
-function udp_mini(){
+
 clear
 
 wget raw.githubusercontent.com/SaputraTech/b45r3ng/main/SKT-Tools/limit.sh && chmod +x limit.sh && ./limit.sh
@@ -583,10 +561,9 @@ systemctl stop udp-mini-3
 systemctl enable udp-mini-3
 systemctl start udp-mini-3
 
-}
-udp_mini
+
 #######################################################################################
-function ssh_slow(){
+
 clear
 
 wget -q -O /tmp/nameserver "${REPO}SKT-Tools/nameserver" >/dev/null 2>&1
@@ -594,10 +571,9 @@ chmod +x /tmp/nameserver
 bash /tmp/nameserver | tee /root/install.log
 clear
 
-}
-ssh_slow
+
 #######################################################################################
-function install_vnstat(){
+
 clear
 
 apt -y install vnstat
@@ -614,10 +590,8 @@ systemctl enable vnstat
 rm -f /root/vnstat-2.6.tar.gz 
 rm -rf /root/vnstat-2.6
 
-}
-install_vnstat
 #######################################################################################
-function install_gotop(){
+
 clear
 #install gotop
 gotop_latest="$(curl -s https://api.github.com/repos/xxxserxxx/gotop/releases | grep tag_name | sed -E 's/.*"v(.*)".*/\1/' | head -n 1)"
@@ -657,8 +631,7 @@ apt-get install libio-socket-inet6-perl libsocket6-perl libcrypt-ssleay-perl lib
 #Set Timezone GMT+7
 timedatectl set-timezone Asia/Jakarta;
 
-}
-install_gotop
+
 #######################################################################################
 # INSTALL DROPBEAR
 # Bash script to install and configure Dropbear
@@ -716,7 +689,7 @@ systemctl status dropbear --no-pager
 
 echo "Dropbear installation and configuration complete."
 #######################################################################################
-function install_Fail2ban(){
+
 clear
 
 if [ -d '/usr/local/ddos' ]; then
@@ -730,10 +703,9 @@ echo "Banner /etc/skt-banner.txt" >>/etc/ssh/sshd_config
 sed -i 's@DROPBEAR_BANNER=""@DROPBEAR_BANNER="/etc/skt-banner.txt"@g' /etc/default/dropbear
 wget -O /etc/skt-banner.txt "${REPO}skt-banner.txt"
 
-}
-install_Fail2ban
+
 #######################################################################################
-function install_epro(){
+
 clear
 
 wget -O /usr/bin/ws "${REPO}SKT-Tools/ws" >/dev/null 2>&1
@@ -826,10 +798,9 @@ echo enable service udp-custom
 systemctl enable udp-custom &>/dev/null
 
 clear
-}
-install_epro
+
 #######################################################################################
-function install_restart(){
+
 clear
 
 /etc/init.d/nginx restart
@@ -861,96 +832,7 @@ rm -f /root/openvpn
 rm -f /root/key.pem
 rm -f /root/cert.pem
 
-}
-install_restart
-netfilter-persistent
 #################################################################################
-
-function profile(){
-clear
-cat >/root/.profile <<EOF
-if [ "$BASH" ]; then
-if [ -f ~/.bashrc ]; then
-. ~/.bashrc
-fi
-fi
-mesg n || true
-menu
-EOF
-cat >/etc/cron.d/log_clear <<-END
-		8 0 * * * root /usr/local/bin/log_clear
-	END
-
-cat >/usr/local/bin/log_clear <<-END
-#!/bin/bash
-tanggal=$(date +"%m-%d-%Y")
-waktu=$(date +"%T")
-echo "Sucsesfully clear & restart On $tanggal Time $waktu." >> /root/log-clear.txt
-systemctl restart udp-custom.service
-END
-	chmod +x /usr/local/bin/log_clear
-	
-cat >/etc/cron.d/daily_backup <<-END
-		*/59 * * * * root /usr/local/bin/daily_backup
-	END
-
-cat >/usr/local/bin/daily_backup <<-END
-#!/bin/bash
-tanggal=$(date +"%m-%d-%Y")
-waktu=$(date +"%T")
-echo "Sucsesfully Backup On $tanggal Time $waktu." >> /root/log-backup.txt
-/usr/local/sbin/backup -r now
-END
-	chmod +x /usr/local/bin/daily_backup
-
-chmod 644 /root/.profile
-cat >/etc/cron.d/daily_reboot <<-END
-SHELL=/bin/sh
-PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
-5 0 * * * root /sbin/reboot
-END
-echo "*/1 * * * * root echo -n > /var/log/nginx/access.log" >/etc/cron.d/log.nginx
-echo "*/1 * * * * root echo -n > /var/log/xray/access.log" >>/etc/cron.d/log.xray
-service cron restart
-cat >/home/daily_reboot <<-END
-5
-END
-cat >/etc/systemd/system/rc-local.service <<EOF
-[Unit]
-Description=/etc/rc.local
-ConditionPathExists=/etc/rc.local
-[Service]
-Type=forking
-ExecStart=/etc/rc.local start
-TimeoutSec=0
-StandardOutput=tty
-RemainAfterExit=yes
-SysVStartPriority=99
-[Install]
-WantedBy=multi-user.target
-EOF
-echo "/bin/false" >>/etc/shells
-echo "/usr/sbin/nologin" >>/etc/shells
-cat >/etc/rc.local <<EOF
-#!/bin/bash
-iptables -I INPUT -p udp --dport 5300 -j ACCEPT
-iptables -t nat -I PREROUTING -p udp --dport 53 -j REDIRECT --to-ports 5300
-systemctl restart netfilter-persistent
-exit 0
-EOF
-chmod +x /etc/rc.local
-AUTOREB=$(cat /home/daily_reboot)
-SETT=11
-if [ $AUTOREB -gt $SETT ]; then
-TIME_DATE="PM"
-else
-TIME_DATE="AM"
-fi
-
-}
-profile
-#################################################################################
-function enable_services(){
 clear
 
 systemctl daemon-reload
@@ -964,10 +846,8 @@ systemctl restart cron
 systemctl restart haproxy
 
 clear
-}
-enable_services
+
 #######################################################################################
-function menu(){
 clear
 
 wget -q https://raw.githubusercontent.com/SaputraTech/b45r3ng/main/SKT-Command/menu.zip
@@ -976,106 +856,8 @@ chmod +x menu/*
 mv menu/* /usr/local/sbin
 rm -rf menu
 rm -rf menu.zip
-}
-menu
+
 #######################################################################################
-
-# INSTALL NGINX
-# Nama file konfigurasi
-CONFIG_FILE="/etc/nginx/nginx.conf"
-
-# Fungsi untuk memastikan perintah berhasil
-check_command() {
-    if [ $? -ne 0 ]; then
-        echo "Error: $1 gagal dieksekusi."
-        exit 1
-    fi
-}
-
-echo "Memastikan pengguna adalah root..."
-if [ "$EUID" -ne 0 ]; then
-    echo "Mohon jalankan script ini sebagai root."
-    exit 1
-fi
-
-echo "Memperbarui repository..."
-apt update -y
-check_command "Update repository"
-
-echo "Menginstal NGINX..."
-apt install -y nginx
-check_command "Instalasi NGINX"
-
-echo "Menghentikan layanan NGINX..."
-systemctl stop nginx
-check_command "Hentikan layanan NGINX"
-
-echo "Membuat cadangan file konfigurasi lama (jika ada)..."
-if [ -f "$CONFIG_FILE" ]; then
-    cp "$CONFIG_FILE" "$CONFIG_FILE.bak"
-    check_command "Membuat cadangan file konfigurasi lama"
-    echo "File konfigurasi lama dicadangkan sebagai $CONFIG_FILE.bak"
-fi
-
-echo "Menulis konfigurasi baru ke $CONFIG_FILE..."
-cat > "$CONFIG_FILE" <<EOF
-#NGINX PRO NEWBIE STORE [ xxx ]
-user www-data;
-
-worker_processes 1;
-pid /var/run/nginx.pid;
-
-events {
-    multi_accept on;
-    worker_connections 1024;
-}
-
-http {
-    gzip on;
-    gzip_vary on;
-    gzip_comp_level 5;
-    gzip_types    text/plain application/x-javascript text/xml text/css;
-    autoindex on;
-    sendfile on;
-    tcp_nopush on;
-    tcp_nodelay on;
-    keepalive_timeout 65;
-    types_hash_max_size 2048;
-    server_tokens off;
-    include /etc/nginx/mime.types;
-    default_type application/octet-stream;
-    access_log /var/log/nginx/access.log;
-    error_log /var/log/nginx/error.log;
-    client_max_body_size 32M;
-    client_header_buffer_size 8m;
-    large_client_header_buffers 8 8m;
-    fastcgi_buffer_size 8m;
-    fastcgi_buffers 8 8m;
-    fastcgi_read_timeout 600;
-    $(awk '/^set_real_ip_from/ { print; }' <<EOF2
-set_real_ip_from 23.235.32.0/20;
-set_real_ip_from 43.249.72.0/22;
-set_real_ip_from 103.244.50.0/24;
-set_real_ip_from 103.245.222.0/23;
-# Tambahkan semua set_real_ip_from di sini...
-EOF2
-)
-    real_ip_header     CF-Connecting-IP;
-    include /etc/nginx/conf.d/*.conf;
-}
-EOF
-check_command "Menulis konfigurasi baru"
-
-echo "Memeriksa sintaks konfigurasi NGINX..."
-nginx -t
-check_command "Validasi konfigurasi NGINX"
-
-echo "Memulai ulang layanan NGINX..."
-systemctl start nginx
-check_command "Memulai ulang layanan NGINX"
-
-echo "Proses instalasi dan konfigurasi selesai!"
-
 
 # INSTALL HAPROXY
 # Script untuk menginstal file konfigurasi HAProxy
