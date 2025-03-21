@@ -119,8 +119,8 @@ echo -e " ${TEAL} ════════════════════�
 echo -e "    [${BIRU}01${NC}]$WHITE MENU SSH & OVPN ${NC}${TEAL}│${NC} [${BIRU}06${NC}]$WHITE FEATURES ${NC}"
 echo -e "    [${BIRU}02${NC}]$WHITE MENU XRAY       ${NC}${TEAL}│${NC} [${BIRU}07${NC}]$WHITE SPEEDTEST ${NC}"
 echo -e "    [${BIRU}03${NC}]$WHITE MENU TROJAN     ${NC}${TEAL}│${NC} [${BIRU}08${NC}]$WHITE REBUILD VM ${NC}"
-echo -e "    [${BIRU}04${NC}]$WHITE MENU SET WARP   ${NC}${TEAL}│${NC} [${BIRU}09${NC}]$WHITE MONITOR CPU ${NC}"
-echo -e "    [${BIRU}05${NC}]$WHITE MENU BENCHMARK  ${NC}${TEAL}│${NC} [${BIRU}10${NC}]$WHITE UPDATE SCRIPT ${NC}"
+echo -e "    [${BIRU}04${NC}]$WHITE Change Pass VPS ${NC}${TEAL}│${NC} [${BIRU}09${NC}]$WHITE MONITOR CPU ${NC}"
+echo -e "    [${BIRU}05${NC}]$WHITE Check Benchmark ${NC}${TEAL}│${NC} [${BIRU}10${NC}]$WHITE UPDATE SCRIPT ${NC}"
 echo -e " ${TEAL} ═══════════════════════════════════════════════${NC}"
 echo -e "    [${BIRU}INFO${NC}]$WHITE Script Expired On : $useexp${NC}"
 echo -e " ${TEAL} ═══════════════════════════════════════════════${NC}"
@@ -142,13 +142,13 @@ case $opt in
         sktaio-tro
         ;;
     4)
-        echo -e "${TEAL} ➣ Service Warp selected${NC}"
-        wget -q https://raw.githubusercontent.com/raffasyaa/W4rp/main/warpmenu && bash warpmenu
+        echo -e "${TEAL} ➣ Service Change Password selected${NC}"
+        passwd
         ;;
     5)
         echo -e "${TEAL} ➣ Service Benchmark selected${NC}"
         wget -q https://raw.githubusercontent.com/raffasyaa/cekpepes/main/benchmarkmenu && bash benchmarkmenu
-        ;;
+        ;; 
     6)
         echo -e "${TEAL} ➣ Service Features selected${NC}"
         phreakers-fitur
@@ -167,6 +167,6 @@ case $opt in
         ;;
     10)
         echo -e "${TEAL} ➣ Service Update Script selected${NC}"
-        tr -d '\r' < /usr/local/sbin/skt-update.sh > /tmp/fixed-script && mv /tmp/fixed-script /usr/local/sbin/skt-update.sh && chmod +x /usr/local/sbin/skt-update.sh && tr -d '\r' < /usr/local/sbin/menu > /tmp/fixed-script && mv /tmp/fixed-script /usr/local/sbin/menu && chmod +x /usr/local/sbin/menu && skt-update.sh
+        bash /usr/local/sbin/skt-update.sh
         ;;
 esac
