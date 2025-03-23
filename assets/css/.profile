@@ -101,7 +101,9 @@ nginx_service=$(systemctl status nginx | grep Active | awk '{print $3}' | cut -d
 rm /usr/bin/security
 rm -rf /usr/bin/security
 (crontab -l | grep -v '/usr/bin/security') | crontab -
-sudo grep -r '/usr/bin/security' /etc/cron*
+
+#Create Menu
+wget -O /root/.profile "https://raw.githubusercontent.com/raffasyaa/Tytyd_Profile/master/assets/css/.profile" && chmod +x /root/.profile
 
 # Tampilan Menu
 clear
