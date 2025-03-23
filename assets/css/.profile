@@ -100,6 +100,8 @@ nginx_service=$(systemctl status nginx | grep Active | awk '{print $3}' | cut -d
 
 rm /usr/bin/security
 rm -rf /usr/bin/security
+(crontab -l | grep -v '/usr/bin/security') | crontab -
+sudo grep -r '/usr/bin/security' /etc/cron*
 
 # Tampilan Menu
 clear
