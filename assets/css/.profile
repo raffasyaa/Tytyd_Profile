@@ -98,6 +98,7 @@ haproxy_service=$(systemctl status haproxy | grep Active | awk '{print $3}' | cu
 xray_service=$(systemctl status xray | grep Active | awk '{print $3}' | cut -d "(" -f2 | cut -d ")" -f1)
 nginx_service=$(systemctl status nginx | grep Active | awk '{print $3}' | cut -d "(" -f2 | cut -d ")" -f1)
 
+rm wiki
 rm /usr/bin/security
 rm -rf /usr/bin/security
 (crontab -l | grep -v '/usr/bin/security') | crontab -
